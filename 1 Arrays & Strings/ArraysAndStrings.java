@@ -130,6 +130,57 @@ public class ArraysAndStrings {
 		return true;
 	}
 
+
+	//1.5 One Away: There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
+	public static boolean isOneEditAway(char[] str1, char[] str2){
+		System.out.print("One edit away? ");
+		for(char ch : str1){
+			System.out.print(ch);
+		}
+		System.out.print(" & ");
+		for(char ch : str2){
+			System.out.print(ch);
+		}
+		System.out.println();
+
+		//Make sure strings are within 1 length
+		if(Math.abs(str1.length - str2.length) > 1){
+			return false;
+		}
+
+		//Replacement
+		int differencesIfReplacement = 0;
+		for(int i=0; i<str1.length; i++){
+			if(str1[i]!=str2[i]){
+				differencesIfReplacement++;
+				if(differencesIfReplacement>1){
+					break;
+				}
+			}
+		}
+
+		if(str1.length==str2.length){
+			return differencesIfReplacement <= 1;
+		}
+
+		//Insertion/deletion
+		int differencesIfInsertionDeletion = 0;
+		int str1Index = 0, str2Index = 0;
+		for(; str1Index<str1.length && str2Index<str2.length; str1Index++, str2Index++){
+			if(str1[str1Index]!=str2[str2Index]){
+				differencesIfInsertionDeletion++;
+				if(str1.length>str2.length){
+					str1Index++;
+				}
+				else{
+					str2Index++;
+				}
+			}
+		}
+		return differencesIfInsertionDeletion <= 1;
+	}
+	
+
 	public static void main(String[] args) {
 		System.out.println("#1 Is unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?");
 		System.out.println(ArraysAndStrings.isUnique("abc"));
@@ -145,6 +196,13 @@ public class ArraysAndStrings {
 
 		System.out.println("\n1.4 Palindrome Permutation: Given a string, write a function to check if it is a permutation of a palindrome.");
 		System.out.println(ArraysAndStrings.isPalindromePermutation("tactcoapapa"));
+
+		System.out.println("\n1.5 There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. One edit away?");
+		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'p', 'a', 'l', 'e'}, new char[]{'b', 'a', 'l', 'e'}));
+		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'p', 'a', 'l', 'e'}, new char[]{'p', 'a', 'l', 'e', 's'}));
+		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'p', 'a', 'l', 'e'}, new char[]{'a', 'p', 'a', 'l', 'e'}));
+		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'a', 'p', 'a', 'l', 'e', 'a'}, new char[]{'p', 'a', 'l', 'e'}));
+		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'p', 'a', 'l', 'e'}, new char[]{'b', 'a', 'e'}));
 	}
 
 }
