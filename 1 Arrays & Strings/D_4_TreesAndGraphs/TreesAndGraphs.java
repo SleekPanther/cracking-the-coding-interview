@@ -62,21 +62,16 @@ public class TreesAndGraphs {
 		ListDepths(root.right, depths, currentDepth);
 	}
 
-	public static void main(String[] args) {
-		System.out.println("4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.");
-		System.out.println("Minimal tree creation order");
-		TreesAndGraphs.minimalTree(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
-
-		System.out.println("\n4.3 Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a tree with depth D, you'll have D linked lists).");
+	private static void ListDepthsTest(){
 		NodeBinaryInt root = new NodeBinaryInt(4);
 		NodeBinaryInt l1 = new NodeBinaryInt(2);
 		NodeBinaryInt r1 = new NodeBinaryInt(6);
 		root.left=l1;
 		root.right=r1;
 		NodeBinaryInt ll2 = new NodeBinaryInt(1);
-		NodeBinaryInt rl2 = new NodeBinaryInt(50);
+		NodeBinaryInt lr2 = new NodeBinaryInt(50);
 		l1.left=ll2;
-		l1.right=rl2;
+		l1.right=lr2;
 		NodeBinaryInt rr2 = new NodeBinaryInt(10);
 		r1.right=rr2;
 		NodeBinaryInt rrl3 = new NodeBinaryInt(-2);
@@ -87,6 +82,66 @@ public class TreesAndGraphs {
 			System.out.print("Level "+i+": ");
 			System.out.println(depths.get(i));
 		}
+	}
+
+
+	//4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.
+	//Not checking for balanced-ness
+	public static boolean isValidBST(NodeBinaryInt root, Integer min, Integer max){
+		if(root==null){
+			return true;
+		}
+
+		if( (min!=null && root.name <= min) || (max!=null && root.name> max)){
+			return false;
+		}
+
+		//Started with checking only valid subtrees, but didn't work for making sure a child was on the right side compared to a higher up parent
+		// //Check if left should be on the right
+		// if(root.left!=null){
+		// 	if(root.left.name > root.name || (max!=null && root.left.name < max)){
+		// 		return false;
+		// 	}
+		// }
+		// //Check if right should be on the left
+		// if(root.right!=null){
+		// 	if(root.right.name < root.name || (min!=null && root.right.name > min)){
+		// 		return false;
+		// 	}
+		// }
+		// //Check if left is > right
+		// if(root.left!=null && root.right!=null){
+		// 	if(root.left.name > root.right.name){
+		// 		return false;
+		// 	}
+		// }
+
+		return isValidBST(root.left, min, root.name) && isValidBST(root.right, root.name, max);
+	}
+	public static void isValidBSTTest(){
+		NodeBinaryInt root = new NodeBinaryInt(5);
+		NodeBinaryInt l1 = new NodeBinaryInt(3);
+		NodeBinaryInt r1 = new NodeBinaryInt(8);
+		root.left=l1;
+		root.right=r1;
+		NodeBinaryInt ll2 = new NodeBinaryInt(3);
+		NodeBinaryInt lr2 = new NodeBinaryInt(4);	//2==> false
+		l1.left=ll2;
+		l1.right=lr2;
+		System.out.println("Valid? "+isValidBST(root, null, null));
+	}
+
+	public static void main(String[] args) {
+		System.out.println("4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.");
+		System.out.println("Minimal tree creation order");
+		TreesAndGraphs.minimalTree(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+
+		System.out.println("\n4.3 Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a tree with depth D, you'll have D linked lists).");
+		TreesAndGraphs.ListDepthsTest();
+
+
+		System.out.println("\n4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.");
+		TreesAndGraphs.isValidBSTTest();
 	}
 
 }
