@@ -194,8 +194,10 @@ public class TreesAndGraphs {
 		}
 		else{
 			System.out.println("Successor of "+source.name+" is "+successor(source, null).name);
-		}		
+		}
 	}
+	
+	
 
 	public static void main(String[] args) {
 		System.out.println("4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.");
