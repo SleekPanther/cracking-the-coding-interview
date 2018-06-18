@@ -161,6 +161,42 @@ public class TreesAndGraphs {
 		System.out.println("Valid? "+isValidBST(root, null, null));
 	}
 
+	//4.6 Write an algorithm to find the 'next' node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.
+	//Didn't check a ton of edge cases but seems simpler than the book's solution
+	public static NodeBinaryInt successor(NodeBinaryInt root, NodeBinaryInt parent){
+		if(root==null){
+			return parent;
+		}
+
+		//Successor is leftmost of right subtree. So go right, then as far left as possible passing on the current node to 1 level down knows its parent 
+		return successor(successor(root.right, root).left, root);
+	}
+	public static void successorTest(){
+		NodeBinaryInt root = new NodeBinaryInt(60);
+		NodeBinaryInt l1 = new NodeBinaryInt(40);
+		NodeBinaryInt r1 = new NodeBinaryInt(80);
+		root.left=l1;
+		root.right=r1;
+		NodeBinaryInt rl2 = new NodeBinaryInt(90);
+		NodeBinaryInt rr2 = new NodeBinaryInt(100);
+		r1.left=rl2;
+		r1.right=rr2;
+		NodeBinaryInt rll3 = new NodeBinaryInt(70);
+		rl2.left=rll3;
+
+		NodeBinaryInt rllr4 = new NodeBinaryInt(75);
+		rll3.right=rllr4;
+
+		NodeBinaryInt source = root;
+		NodeBinaryInt successor = successor(source, null);
+		if(source.name==successor.name){
+			System.out.println(source.name+" has no successor");
+		}
+		else{
+			System.out.println("Successor of "+source.name+" is "+successor(source, null).name);
+		}		
+	}
+
 	public static void main(String[] args) {
 		System.out.println("4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.");
 		System.out.println("Minimal tree creation order");
@@ -174,6 +210,9 @@ public class TreesAndGraphs {
 
 		System.out.println("\n4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.");
 		TreesAndGraphs.isValidBSTTest();
+
+		System.out.println("\n4.6 Write an algorithm to find the 'next' node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.");
+		TreesAndGraphs.successorTest();
 	}
 
 }
