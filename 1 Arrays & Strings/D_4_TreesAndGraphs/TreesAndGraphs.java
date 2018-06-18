@@ -84,6 +84,35 @@ public class TreesAndGraphs {
 		}
 	}
 
+	//4.4 Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.
+	//works for just a root (empty tree) or root with just 1 child
+	//not sure if my version is as efficicent as the improved version from the book
+	private static boolean isBalancedTree(NodeBinaryInt root){
+		System.out.println("Left height="+getHeight(root.left, 0));
+		System.out.println("Right height="+getHeight(root.right, 0));
+		return Math.abs(getHeight(root.left, 0) - getHeight(root.right, 0)) <= 1;	//heights differ by @ most 1
+	}
+	private static int getHeight(NodeBinaryInt root, int currentDepth){
+		if(root==null){
+			return currentDepth;
+		}
+
+		currentDepth++;		//increment depth since root is not null meaning we went down 1 layer
+		return Math.max(getHeight(root.left, currentDepth), getHeight(root.right, currentDepth));	//pick larger height of each subtree
+	}
+	public static void isBalancedTreeTest(){
+		NodeBinaryInt root = new NodeBinaryInt(5);
+		NodeBinaryInt l1 = new NodeBinaryInt(3);
+		NodeBinaryInt r1 = new NodeBinaryInt(8);
+		root.left=l1;
+		root.right=r1;
+		NodeBinaryInt ll2 = new NodeBinaryInt(2);
+		l1.left=ll2;
+		NodeBinaryInt lll3 = new NodeBinaryInt(1);		//comment out to create a Balanced tree
+		ll2.left=lll3;
+		System.out.println("valid? "+isBalancedTree(root));
+	}
+
 
 	//4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.
 	//Not checking for balanced-ness
@@ -97,6 +126,7 @@ public class TreesAndGraphs {
 		}
 
 		//Started with checking only valid subtrees, but didn't work for making sure a child was on the right side compared to a higher up parent
+		//This is really to close to validating a heap
 		// //Check if left should be on the right
 		// if(root.left!=null){
 		// 	if(root.left.name > root.name || (max!=null && root.left.name < max)){
@@ -139,6 +169,8 @@ public class TreesAndGraphs {
 		System.out.println("\n4.3 Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a tree with depth D, you'll have D linked lists).");
 		TreesAndGraphs.ListDepthsTest();
 
+		System.out.println("\n4.4 Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.");
+		TreesAndGraphs.isBalancedTreeTest();
 
 		System.out.println("\n4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.");
 		TreesAndGraphs.isValidBSTTest();
