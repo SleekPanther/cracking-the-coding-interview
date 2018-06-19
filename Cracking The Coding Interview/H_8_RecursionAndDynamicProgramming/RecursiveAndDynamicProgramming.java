@@ -78,11 +78,65 @@ public class RecursiveAndDynamicProgramming {
 		}
 	}
 
+	//8.3 Magic Index: A magic index in an array A [ 0 ... n -1] is defined to be an index such that A[ i] = i. Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in array A.
+	//Didn't get working
+	// private static int magicIndexNonDistinct(int[] array){
+	// 	int left=0;
+	// 	int right=array.length-1;
+	// 	while(left<=right){
+	// 		int mid = (right+left)/2;
+	// 		int value = array[mid];
+	// 		if(array[mid]==mid){	//found magic index
+	// 			return mid;
+	// 		}
+	// 		if(array[mid]<mid){	//discard 
+	// 			left = Math.max(mid+1, mid);
+	// 			// left++;
+	// 		}
+	// 		else{
+	// 			right = Math.min(mid-1, mid);
+	// 			// right--;
+	// 		}
+	// 	}
+	// 	return -1;
+	// }
+	private static int magicIndexDistinct(int[] array){
+		int left=0;
+		int right=array.length-1;
+		while(left<=right){
+			int mid = (right+left)/2;
+			if(array[mid]==mid){	//found magic index
+				return mid;
+			}
+			if(array[mid]>mid){	//discard 
+				right = mid-1;
+			}
+			else{
+				left = mid+1;
+			}
+		}
+		return -1;
+	}
+	public static void magicIndexTest(){
+		int[] array1 = new int[]{-2, 0, 1, 2, 4, 55, 60};
+		System.out.println(Arrays.toString(array1)+" Magic index = "+magicIndexDistinct(array1));
+
+		int[] array2 = new int[]{-1, 0, 2, 10, 11};
+		System.out.println(Arrays.toString(array2)+" Magic index = "+magicIndexDistinct(array2));
+
+		// int[] array3 = new int[]{-100, -90, -80, -70, -60, 1, 6, 70, 90 };
+		// int[] array3 = new int[]{-10, -5, 2, 2, 2, 3, 4, 70, 90, 102, 130 };
+		// System.out.println(Arrays.toString(array3)+" Magic index = "+magicIndexNonDistinct(array3));
+	}
+
 	public static void main(String[] args) {
 		System.out.println("8.1 A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.");
 		System.out.println("Ways to climb 5 stairs: "+RecursiveAndDynamicProgramming.tripleStepPermutations(5));
 
 		System.out.println("\n8.2 Robot in a Grid: Imagine a robot sitting on the upper left corner of grid with r rows and c columns. The robot can only move in two directions, right and down, but certain cells are 'off limits' such that the robot cannot step on them. Design an algorithm to find a path for the robot from the top left to the bottom right.");
 		RecursiveAndDynamicProgramming.robotInAGridTest();
+
+		System.out.println("\n8.3 Magic Index: A magic index in an array A [ 0 ... n -1] is defined to be an index such that A[ i] = i. Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in array A.");
+		RecursiveAndDynamicProgramming.magicIndexTest();
 	}
 }
