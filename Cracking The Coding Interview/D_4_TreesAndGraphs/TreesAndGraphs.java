@@ -196,8 +196,112 @@ public class TreesAndGraphs {
 			System.out.println("Successor of "+source.name+" is "+successor(source, null).name);
 		}
 	}
-	
-	
+
+	//4.7 Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
+	private static void buildOrder(String[] projectNames, String[][] dependencies){
+		HashMap<String, Project> projects = new HashMap<String, Project>();
+		PriorityQueue<Project> projectsByDependencyCount = new PriorityQueue<Project>();
+		
+		//Create objects with 0 dependencies
+		for(String projectName : projectNames){
+			projects.put(projectName, new Project(projectName));
+		}
+
+		//Populate objects with dependencies & dependents
+		for(String[] dependencyPair : dependencies){
+			String project = dependencyPair[0];
+			String dependencyProject = dependencyPair[1];
+			
+			projects.get(dependencyProject).dependencies.add(projects.get(project));	//add dependency on 2nd project to the current one
+			projects.get(project).dependents.add(projects.get(dependencyProject));
+		}
+
+		//create priority queue
+		for(Project project : projects.values()){
+			 projectsByDependencyCount.add(project);
+		}
+
+		//Attempt to build projects with 0 dependencies
+		while(!projectsByDependencyCount.isEmpty()){
+			Project project = projectsByDependencyCount.poll();
+			//System.out.println(project);
+			if(!project.dependencies.isEmpty()){
+				System.out.println("No valid build order");
+				break;
+			}
+			else{
+				System.out.println(project);	//build the project
+				//decrement references to built project for all dependents
+				for(Project dependent : project.dependents){
+					dependent.dependencies.remove(project);		//remove the dependency to the project just built
+					//remove & re-add to priority queue to reorder & keep fewest dependencies @ the top
+					projectsByDependencyCount.remove(dependent);
+					projectsByDependencyCount.add(dependent);
+				}
+			}
+		}
+	}
+	public static void buildOrderTest(){
+		String[] projects = new String[] {"a", "b", "c", "d", "e", "f"};
+		String[][] dependencies = new String[][]{ {"a", "d"},  {"f", "b"}, {"b", "d"},  {"f", "a"}, {"d", "c"}};
+		runBuildOrderTest(projects, dependencies);
+
+		String[] projects2 = new String[] {"a", "b", "c"};
+		String[][] dependencies2 = new String[][]{ {"a", "b"},  {"b", "c"}, {"c", "a"}};
+		System.out.println();
+		runBuildOrderTest(projects2, dependencies2);
+	}
+	private static void runBuildOrderTest(String[] projects, String[][] dependencies){
+		System.out.print("Valid Build order? ");
+		System.out.println("Projects="+Arrays.toString(projects));
+		System.out.println("Dependencies="+Arrays.deepToString(dependencies));
+		buildOrder(projects, dependencies);
+	}
+	static class Project implements Comparable<Project>{
+		public String name;
+		public LinkedList<Project> dependencies = new LinkedList<Project>();
+		public LinkedList<Project> dependents = new LinkedList<Project>();
+
+		//Constructor for something with no dependents, OK to build
+		public Project(String name){
+			this(name, null, null);
+		}
+		public Project(String name, Project dependancy, Project dependent){
+			this.name=name;
+			if(dependancy!=null){
+				dependencies.add(dependancy);
+			}
+			if(dependent!=null){
+				dependents.add(dependent);
+			}
+		}
+
+		@Override
+		public int compareTo(Project other) {
+			return this.dependencies.size() - other.dependencies.size();
+		}
+
+		@Override
+		public String toString(){
+			String str = name + " dependenCIES=" + dependencies.size() + ": ";
+			if(!dependencies.isEmpty()){
+				str+= "[";
+				for(Project project : dependencies){
+					str+= project.name + " ";
+				}
+				str+="]";
+			}
+			if(!dependents.isEmpty()){
+				str+= " dependENTS=" + dependents.size() + ": ";
+				str+= "[";
+				for(Project project : dependents){
+					str+= project.name + " ";
+				}
+				str+="]";
+			}
+			return str;
+		}
+	}
 
 	public static void main(String[] args) {
 		System.out.println("4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.");
@@ -215,6 +319,9 @@ public class TreesAndGraphs {
 
 		System.out.println("\n4.6 Write an algorithm to find the 'next' node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.");
 		TreesAndGraphs.successorTest();
+		
+		System.out.println("\n4.7 Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.");
+		TreesAndGraphs.buildOrderTest();
 	}
 
 }
