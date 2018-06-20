@@ -124,9 +124,30 @@ public class RecursiveAndDynamicProgramming {
 		int[] array2 = new int[]{-1, 0, 2, 10, 11};
 		System.out.println(Arrays.toString(array2)+" Magic index = "+magicIndexDistinct(array2));
 
+		//non destinct didn't work
 		// int[] array3 = new int[]{-100, -90, -80, -70, -60, 1, 6, 70, 90 };
 		// int[] array3 = new int[]{-10, -5, 2, 2, 2, 3, 4, 70, 90, 102, 130 };
 		// System.out.println(Arrays.toString(array3)+" Magic index = "+magicIndexNonDistinct(array3));
+	}
+
+	//8.4 Power Set: Write a method to return all subsets of a set.
+	public static ArrayList<ArrayList<Integer>> powerSet(int[] set){
+		ArrayList<ArrayList<Integer>> powerSet = new ArrayList<ArrayList<Integer>>();
+		powerSet.add(new ArrayList<Integer>());		//add empty set
+
+		//Start from beginning of the list & insert the end of the list into existing subsets
+		for(int end = 0; end<set.length; end++){
+			int size = powerSet.size();		//get current number of subsets since the next loop updates powerSet.size()
+			for(int i=0; i<size; i++){	//insert the tail elemnt of the list into all subsets
+				ArrayList<Integer> subset = powerSet.get(i);
+
+				ArrayList<Integer> newSet = new ArrayList<Integer>();
+				newSet.addAll(subset);
+				newSet.add(set[end]);
+				powerSet.add(newSet);
+			}
+		}
+		return powerSet;
 	}
 
 	public static void main(String[] args) {
@@ -138,5 +159,8 @@ public class RecursiveAndDynamicProgramming {
 
 		System.out.println("\n8.3 Magic Index: A magic index in an array A [ 0 ... n -1] is defined to be an index such that A[ i] = i. Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in array A.");
 		RecursiveAndDynamicProgramming.magicIndexTest();
+
+		System.out.println("\n8.4 Power Set: Write a method to return all subsets of a set.");
+		System.out.println("PowerSet of {0, 1, 2, 3} = "+RecursiveAndDynamicProgramming.powerSet(new int[]{0, 1, 2, 3}));
 	}
 }
