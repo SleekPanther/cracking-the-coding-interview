@@ -138,7 +138,7 @@ public class RecursiveAndDynamicProgramming {
 		//Start from beginning of the list & insert the end of the list into existing subsets
 		for(int end = 0; end<set.length; end++){
 			int size = powerSet.size();		//get current number of subsets since the next loop updates powerSet.size()
-			for(int i=0; i<size; i++){	//insert the tail elemnt of the list into all subsets
+			for(int i=0; i<size; i++){	//insert the tail element of the list into all subsets
 				ArrayList<Integer> subset = powerSet.get(i);
 
 				ArrayList<Integer> newSet = new ArrayList<Integer>();
@@ -148,6 +148,42 @@ public class RecursiveAndDynamicProgramming {
 			}
 		}
 		return powerSet;
+	}
+
+	//8.5 Write a recursive function to multiply two positive integers without using the *operator.You can use addition, subtraction, and bit shifting, but you should minimize the number of those operations.
+	//I did an iterative version instead
+	public static int productIterative(int a, int b){
+		System.out.print(a+"*"+b+" = ");
+
+		int ans=0;
+		boolean negate = false;
+		if(a<0 || b<0){
+			negate = true;
+		}
+
+		//find larger number x & add it to the total y times
+		if(a>b){
+			if(b<0){
+				b=-b;
+			}
+			for(; b>0; b--){
+				ans+=a;
+			}
+		}
+		else{
+			if(a<0){
+				a=-a;
+			}
+			for(; a>0; a--){
+				ans+=b;
+			}
+		}
+
+		if(negate){
+			return -ans;
+		}
+
+		return ans;
 	}
 
 	public static void main(String[] args) {
@@ -162,5 +198,18 @@ public class RecursiveAndDynamicProgramming {
 
 		System.out.println("\n8.4 Power Set: Write a method to return all subsets of a set.");
 		System.out.println("PowerSet of {0, 1, 2, 3} = "+RecursiveAndDynamicProgramming.powerSet(new int[]{0, 1, 2, 3}));
+
+		System.out.println("\n8.5 Write a recursive function to multiply two positive integers without using the *operator.You can use addition, subtraction, and bit shifting, but you should minimize the number of those operations.");
+		System.out.println("Iterative approach");
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(4, 3));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(3, -4));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(-3, 4));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(-3, -4));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(0, -4));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(0, 4));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(2, 0));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(-2, 0));
+		System.out.println(RecursiveAndDynamicProgramming.productIterative(0, 0));
+		
 	}
 }
