@@ -208,6 +208,94 @@ public class ArraysAndStrings {
 		return ans.toString();
 	}
 
+	public static void zeroMatrixTest(){
+		int[][] matrix1 = new int[][]{
+			{1, 1, 1, 1}, 
+			{1, 0, 1, 1}, 
+			{1, 1, 1, 1}, 
+			{1, 1, 1, 1}
+		};
+		System.out.println("Original");
+		printMatrix(matrix1);
+		zeroMatrix(matrix1);
+		System.out.println("Zeroed");
+		printMatrix(matrix1);
+
+		int[][] matrix2 = new int[][]{
+			{1, 1, 1, 1}, 
+			{1, 0, 1, 1}, 
+			{1, 1, 1, 1}, 
+			{0, 1, 1, 1}
+		};
+		System.out.println("Original");
+		printMatrix(matrix2);
+		zeroMatrix(matrix2);
+		System.out.println("Zeroed");
+		printMatrix(matrix2);
+	}
+	private static void printMatrix(int[][] matrix){
+		for(int[] row : matrix){
+			System.out.println(Arrays.toString(row));
+		}
+	}
+	private static void zeroMatrix(int[][] matrix){
+		boolean[] zeroColumn = new boolean[matrix.length];
+		boolean[] zeroRow = new boolean[matrix[0].length];
+
+		for(int y=0; y<matrix.length; y++){
+			for (int x=0; x<matrix[y].length; x++) {
+				if(matrix[y][x]==0){
+					zeroColumn[y] = true;
+					zeroRow[x] = true;
+				}
+			}
+		}
+
+		//zero vertical
+		for (int column=0; column<zeroColumn.length; column++) {
+			if(zeroColumn[column]){
+				for(int i=0; i<matrix.length; i++){
+					matrix[i][column] = 0;
+				}
+			}
+		}
+
+		//zero horizontal
+		for (int row=0; row<zeroRow.length; row++) {
+			if(zeroRow[row]){
+				for(int i=0; i<matrix[0].length; i++){
+					matrix[row][i] = 0;
+				}
+			}
+		}
+	}
+	//1st attempt, Does duplicate work by re-zeroing things
+	private static void zeroMatrixCoordinates(int[][] matrix){
+		ArrayList<int[]> zeroCoordinates = new ArrayList<int[]>();
+
+		for(int y=0; y<matrix.length; y++){
+			for (int x=0; x<matrix[y].length; x++) {
+				if(matrix[y][x]==0){
+					zeroCoordinates.add(new int[]{y, x});
+				}
+			}
+		}
+
+		for(int[] coordinate : zeroCoordinates){
+			//zero horizontal
+			int y = coordinate[0];
+			for(int i=0; i<matrix[0].length; i++){
+				matrix[y][i]=0;
+			}
+
+			//zero vertical
+			int x = coordinate[1];
+			for(int i=0; i<matrix.length; i++){
+				matrix[i][x] = 0;
+			}
+		}
+	}
+
 
 	public static void main(String[] args) {
 		System.out.println("#1 Is unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?");
@@ -236,6 +324,11 @@ public class ArraysAndStrings {
 		System.out.println(ArraysAndStrings.compact("aabcccccaaa"));
 		System.out.println(ArraysAndStrings.compact("abcccc"));
 		System.out.println(ArraysAndStrings.compact("abccc"));
+
+		//1.7 rotate a matrix
+
+		System.out.println("\n1.8 Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.");
+		ArraysAndStrings.zeroMatrixTest();
 	}
 
 }
