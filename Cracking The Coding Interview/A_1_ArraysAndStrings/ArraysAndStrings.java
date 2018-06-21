@@ -181,7 +181,33 @@ public class ArraysAndStrings {
 		}
 		return differencesIfInsertionDeletion <= 1;
 	}
-	
+
+	//1.6 Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2blc5a3. If the 'compressed' string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a - z).
+	//O(n) time, space for StrinBuilder
+	public static String compact(String str){
+		System.out.print(str + " compacted = ");
+
+		StringBuilder ans = new StringBuilder();
+
+		//Loop over all characters & compare 1 ahead
+		for(int i=0; i<str.length()-1; i++){
+			int repeatedCount = 1;
+			char currentChar = str.charAt(i);	//save char snce i is incremented
+			//if there are characters to the right, increment count if they are the same
+			while(i<str.length()-1 && currentChar==str.charAt(i+1)){
+				repeatedCount++;
+				i++;
+			}
+			ans.append(currentChar+""+repeatedCount);
+		}
+
+		//Return shorter thing
+		if(str.length()<ans.length()){
+			return str;
+		}
+		return ans.toString();
+	}
+
 
 	public static void main(String[] args) {
 		System.out.println("#1 Is unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?");
@@ -205,6 +231,11 @@ public class ArraysAndStrings {
 		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'p', 'a', 'l', 'e'}, new char[]{'a', 'p', 'a', 'l', 'e'}));
 		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'a', 'p', 'a', 'l', 'e', 'a'}, new char[]{'p', 'a', 'l', 'e'}));
 		System.out.println(ArraysAndStrings.isOneEditAway(new char[]{'p', 'a', 'l', 'e'}, new char[]{'b', 'a', 'e'}));
+
+		System.out.println("\n1.6 Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2blc5a3. If the 'compressed' string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a - z).");
+		System.out.println(ArraysAndStrings.compact("aabcccccaaa"));
+		System.out.println(ArraysAndStrings.compact("abcccc"));
+		System.out.println(ArraysAndStrings.compact("abccc"));
 	}
 
 }
