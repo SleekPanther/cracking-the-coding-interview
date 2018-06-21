@@ -296,6 +296,22 @@ public class ArraysAndStrings {
 		}
 	}
 
+	//1.9 String Rotation:Assumeyou have a method isSubstringwhich checks if one word is a substring of another. Given two strings, sl and s2, write code to check if s2 is a rotation of sl using only one call to isSubstring (e.g., 'waterbottle' is a rotation of 'erbottlewat').
+	//Couldn't do it with substring/contains so used equals instead
+	public static boolean isRotation(String s1, String s2){
+		System.out.println("s1="+s1+" s2="+s2);
+
+		for(int i=0; i<s1.length(); i++){
+			String beginning = s1.substring(0, i);
+			String ending = s1.substring(i, s1.length());
+			String newString = ending + ""+ beginning;
+			if(newString.equals(s2)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public static void main(String[] args) {
 		System.out.println("#1 Is unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?");
@@ -329,6 +345,11 @@ public class ArraysAndStrings {
 
 		System.out.println("\n1.8 Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.");
 		ArraysAndStrings.zeroMatrixTest();
+
+		System.out.println("\n1.9 String Rotation:Assumeyou have a method isSubstringwhich checks if one word is a substring of another. Given two strings, sl and s2, write code to check if s2 is a rotation of sl using only one call to isSubstring (e.g., 'waterbottle' is a rotation of 'erbottlewat').");
+		System.out.println(ArraysAndStrings.isRotation("erbottlewat", "waterbottle"));
+		System.out.println(ArraysAndStrings.isRotation("bca", "abc"));
+		System.out.println(ArraysAndStrings.isRotation("abb", "abc"));
 	}
 
 }
