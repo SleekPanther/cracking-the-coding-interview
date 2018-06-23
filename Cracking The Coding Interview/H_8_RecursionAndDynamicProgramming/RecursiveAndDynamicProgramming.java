@@ -186,6 +186,36 @@ public class RecursiveAndDynamicProgramming {
 		return ans;
 	}
 
+
+
+	//8.7 Permutations without Dups: Write a method to compute all permutations of a string of unique characters.
+	public static ArrayList<String> permutation(String str){
+		ArrayList<String> permutations = new ArrayList<String>();
+		permutations.add("");		//add empty string permutation
+
+		//Start from beginning of the list & insert the end of the list into existing subsets
+		for(int index = 0; index<str.length(); index++){
+			int size = permutations.size();		//get current number of permutations since the next loop updates permutations.size()
+			for(int i=0; i<size; i++){
+				String oldPermutation = permutations.get(i);
+
+				//Premend the current character to the beginning of the permutation
+				String prependedNewPermutation = str.charAt(index)+oldPermutation;
+				permutations.set(i, prependedNewPermutation);
+
+				StringBuilder newPermutation = new StringBuilder();		//stringBuilder to allow insertion
+				for(int j=1; j<=oldPermutation.length(); j++){	//start @ 1 & go 1 beyond the "end" of the old permutations inserting the current character to make a new permutation
+					newPermutation.setLength(0);	//"clear" any previous value
+					newPermutation.append(oldPermutation);	//start with original permutations
+					newPermutation.insert(j, str.charAt(index)+"");		//insert the current character at the current index giving a new permutation
+					permutations.add(newPermutation.toString());
+				}
+			}
+		}
+		return permutations;
+	}
+
+
 	public static void main(String[] args) {
 		System.out.println("8.1 A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.");
 		System.out.println("Ways to climb 5 stairs: "+RecursiveAndDynamicProgramming.tripleStepPermutations(5));
@@ -210,6 +240,10 @@ public class RecursiveAndDynamicProgramming {
 		System.out.println(RecursiveAndDynamicProgramming.productIterative(2, 0));
 		System.out.println(RecursiveAndDynamicProgramming.productIterative(-2, 0));
 		System.out.println(RecursiveAndDynamicProgramming.productIterative(0, 0));
-		
+	
+
+
+		System.out.println("\n8.7 Permutations without Dups: Write a method to compute all permutations of a string of unique characters.");
+		System.out.println(RecursiveAndDynamicProgramming.permutation("abcd"));
 	}
 }
