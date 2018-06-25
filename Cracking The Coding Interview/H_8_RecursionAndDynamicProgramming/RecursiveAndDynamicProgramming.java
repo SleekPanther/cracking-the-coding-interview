@@ -241,6 +241,39 @@ public class RecursiveAndDynamicProgramming {
 	// 	return combinations;
 	// }
 
+	//8.10 Paint Fill: Implement the 'paint fill' function that one might see on many image editing programs. That is, given a screen (represented by a two-dimensional array of colors), a point, and a new color, fill in the surrounding area until the color changes from the original color");
+	public static void paintFillTest(){
+		int[][] canvas = new int[][]{
+			{1, 0, 1, 1},
+			{0, 0, 2, 1},
+			{0, 0, 1, 1},
+			{1, 0, 1, 1}
+		};
+		paintFill(canvas, 1, 1, 0, 9);
+		for(int[] row : canvas){
+			System.out.println(Arrays.toString(row));
+		}
+	}
+	//O(n*m)	worst case colors entire grid	O(8) constant work at each pixel to check surrounding pixels
+	private static void paintFill(int[][] canvas, int yPosition, int xPosition, int oldColor, int newColor){
+		if(canvas[yPosition][xPosition]!=oldColor){		//stop searching when reached a color that's not the original color
+			return;
+		}
+		canvas[yPosition][xPosition] = newColor;
+		//Loop over all neighbors excluding current pixel and color if new pixel matches old color
+		for(int y=yPosition-1; y<=yPosition+1; y++){
+			for(int x=xPosition-1; x<=xPosition+1; x++){
+				if( !(y==yPosition && x==xPosition)			//skip the spot we just colored
+						&& (y>=0 && x>=0)					//check bounds
+						&& (y<canvas.length && x<canvas[0].length) ){	//check bounds
+					if(canvas[y][x]==oldColor){		//only color pixels that match the old color
+						paintFill(canvas, y, x, oldColor, newColor);
+					}
+				}
+			}
+		}
+	}
+	
 
 	public static void main(String[] args) {
 		System.out.println("8.1 A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.");
@@ -277,7 +310,8 @@ public class RecursiveAndDynamicProgramming {
 		// System.out.println("\n8.9 Parens: Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.");
 		// System.out.println(RecursiveAndDynamicProgramming.parenthesesCombinations(3));
 		// System.out.println(RecursiveAndDynamicProgramming.parenthesesCombinations(3).size());
-		
-		
+
+		System.out.println("\n8.10 Paint Fill: Implement the 'paint fill' function that one might see on many image editing programs. That is, given a screen (represented by a two-dimensional array of colors), a point, and a new color, fill in the surrounding area until the color changes from the original color");
+		RecursiveAndDynamicProgramming.paintFillTest();
 	}
 }
