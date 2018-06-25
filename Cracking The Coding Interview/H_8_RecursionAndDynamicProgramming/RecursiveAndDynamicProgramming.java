@@ -215,6 +215,32 @@ public class RecursiveAndDynamicProgramming {
 		return permutations;
 	}
 
+	//8.9 Parens: Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
+	//breaks after n=4
+	// public static ArrayList<String> parenthesesCombinations(int numParenthesesPairs){
+	// 	if(numParenthesesPairs==0){
+	// 		return new ArrayList<String>(Arrays.asList(""));
+	// 	}
+
+	// 	ArrayList<String> combinations = new ArrayList<String>(Arrays.asList("()"));
+	// 	for(int i=1; i<numParenthesesPairs; i++){
+	// 		int size = combinations.size();		//get size before adding anything new
+
+	// 		String oldCombination = combinations.get(0);
+	// 		combinations.set(0, "()"+oldCombination);
+	// 		combinations.add("("+oldCombination+")");
+
+	// 		for(int j=1; j<size; j++){	//skip 1st permutation composed of ()()()()()...
+	// 			oldCombination = combinations.get(j);
+	// 			combinations.set(j, "()"+oldCombination);
+	// 			combinations.add("("+oldCombination+")");
+	// 			combinations.add(oldCombination+"()");
+	// 		}
+	// 	}
+
+	// 	return combinations;
+	// }
+
 
 	public static void main(String[] args) {
 		System.out.println("8.1 A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.");
@@ -241,9 +267,17 @@ public class RecursiveAndDynamicProgramming {
 		System.out.println(RecursiveAndDynamicProgramming.productIterative(-2, 0));
 		System.out.println(RecursiveAndDynamicProgramming.productIterative(0, 0));
 	
-
+		//8.6 Towers of Hanoi
 
 		System.out.println("\n8.7 Permutations without Dups: Write a method to compute all permutations of a string of unique characters.");
 		System.out.println(RecursiveAndDynamicProgramming.permutation("abcd"));
+
+		//8.8 Permutations with Dups
+
+		// System.out.println("\n8.9 Parens: Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.");
+		// System.out.println(RecursiveAndDynamicProgramming.parenthesesCombinations(3));
+		// System.out.println(RecursiveAndDynamicProgramming.parenthesesCombinations(3).size());
+		
+		
 	}
 }
