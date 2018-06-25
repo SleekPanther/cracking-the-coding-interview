@@ -273,7 +273,22 @@ public class RecursiveAndDynamicProgramming {
 			}
 		}
 	}
-	
+
+	//8.11 Coins: Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and pennies (1 cent), write code to calculate the number of ways of representing n cents.
+	public static int coinCombinations(int amount){
+		if(amount<5){
+			return 1;
+		}
+		if(amount<10){
+			return 2 * coinCombinations(amount-5);		//use a nickel, 2 ways to make 5 cents (1 nickel or 5 pennies)
+		}
+		if(amount<25){
+			return 4 * coinCombinations(amount-10);		//add a dime, 4 ways = d, nn, pppppn, pppppppppp
+		}
+
+		return 1;
+		// return  * coinCombinations(amount-25);	//use a quarter.  ways to make 25 cents = 
+	}
 
 	public static void main(String[] args) {
 		System.out.println("8.1 A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.");
@@ -313,5 +328,8 @@ public class RecursiveAndDynamicProgramming {
 
 		System.out.println("\n8.10 Paint Fill: Implement the 'paint fill' function that one might see on many image editing programs. That is, given a screen (represented by a two-dimensional array of colors), a point, and a new color, fill in the surrounding area until the color changes from the original color");
 		RecursiveAndDynamicProgramming.paintFillTest();
+
+		System.out.println("\n8.11 Coins: Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and pennies (1 cent), write code to calculate the number of ways of representing n cents.");
+		System.out.println("Ways to make change for 25 cents = " = RecursiveAndDynamicProgramming.coinCombinations(25));
 	}
 }
