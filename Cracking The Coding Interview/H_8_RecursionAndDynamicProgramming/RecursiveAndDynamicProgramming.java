@@ -290,6 +290,50 @@ public class RecursiveAndDynamicProgramming {
 		// return  * coinCombinations(amount-25);	//use a quarter.  ways to make 25 cents = 
 	}
 
+	//8.12 Eight Queens: Write an algorithm to print all ways of arranging eight queens on an 8x8 chess board so that none of them share the same row, column, or diagonal. In this case, "diagonal" means all diagonals, not just the two that bisect the board.
+	//incomplete
+	// public static void eightQueens(){
+	// 	for(int row=7; row>=0; row--){
+	// 		boolean[][] used = new boolean[8][8];
+	// 		int[][] board = new int[8][8];
+	// 		for(int col=7; col>=0; col--){
+	// 			if(!used[row][col]){
+	// 				occupyAndCrossOffSurrounding(board, used, row, col);
+	// 				printBoard(board);
+	// 				printUsed(used);
+	// 				System.out.println();
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// private static void occupyAndCrossOffSurrounding(int[][] board, boolean[][] used, int row, int col){
+	// 	used[row][col]=true;
+	// 	board[row][col]=1;	//place a queen
+
+	// 	for(int i=0; i<8; i++){
+	// 		used[row][i]=true;
+	// 		used[i][col]=true;
+	// 	}
+	// 	for(int y=row-1, x=col-1; y>=0 && x>=0; y--, x--){
+	// 		used[y][x]=true;
+	// 	}
+	// 	for(int y=row+1, x=col+1; y<used.length && x<used[0].length; y++, x++){
+	// 		used[y][x]=true;
+	// 	}
+	// 	//need up right and bototm left diagonals
+	// }
+	// private static void printBoard(int[][] board){
+	// 	for(int[] row : board){
+	// 		System.out.println(Arrays.toString(row));
+	// 	}
+	// }
+	// private static void printUsed(boolean[][] used){
+	// 	for(boolean[] row : used){
+	// 		System.out.println(Arrays.toString(row));
+	// 	}
+	// }
+
+
 	public static void main(String[] args) {
 		System.out.println("8.1 A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.");
 		System.out.println("Ways to climb 5 stairs: "+RecursiveAndDynamicProgramming.tripleStepPermutations(5));
@@ -330,6 +374,11 @@ public class RecursiveAndDynamicProgramming {
 		RecursiveAndDynamicProgramming.paintFillTest();
 
 		System.out.println("\n8.11 Coins: Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and pennies (1 cent), write code to calculate the number of ways of representing n cents.");
-		System.out.println("Ways to make change for 25 cents = " = RecursiveAndDynamicProgramming.coinCombinations(25));
+		System.out.println("Ways to make change for 18 cents = " + RecursiveAndDynamicProgramming.coinCombinations(18));
+
+		// System.out.println("\n8.12 Eight Queens: Write an algorithm to print all ways of arranging eight queens on an 8x8 chess board so that none of them share the same row, column, or diagonal. In this case, 'diagonal' means all diagonals, not just the two that bisect the board.");
+		// RecursiveAndDynamicProgramming.eightQueens();
+
+		
 	}
 }
