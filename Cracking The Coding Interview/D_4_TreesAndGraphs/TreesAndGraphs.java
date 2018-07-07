@@ -303,6 +303,54 @@ public class TreesAndGraphs {
 		}
 	}
 
+	//4.10 Check Subtree: Tl and T2 are two very large binary trees, with Tl much bigger than T2. Create an algorithm to determine if T2 is a subtree of Tl. A tree T2 is a subtree of Tl if there exists a node n in Tl such that the subtree of n is identical to T2. That is, if you cut off the tree at node n, the two trees would be identical.
+	public static boolean checkSubtreeTest(){
+		NodeBinaryInt T1 = new NodeBinaryInt(1);
+		NodeBinaryInt T1l = new NodeBinaryInt(2);
+		NodeBinaryInt T1r = new NodeBinaryInt(20);
+		T1.left = T1l;
+		T1.right = T1r;
+		NodeBinaryInt T1ll = new NodeBinaryInt(3);
+		NodeBinaryInt T1lr = new NodeBinaryInt(4);
+		T1l.left = T1ll;
+		T1l.right = T1lr;
+		NodeBinaryInt T1lll = new NodeBinaryInt(5);
+		T1ll.left = T1lll;
+
+		NodeBinaryInt T1rl = new NodeBinaryInt(30);
+		T1r.left = T1rl;
+		NodeBinaryInt T1rr = new NodeBinaryInt(40);
+		T1r.right = T1rr;
+		NodeBinaryInt T1rll = new NodeBinaryInt(50);
+		T1rl.left = T1rll;
+
+
+		NodeBinaryInt T2 = new NodeBinaryInt(2);
+		NodeBinaryInt T2l = new NodeBinaryInt(3);
+		NodeBinaryInt T2r = new NodeBinaryInt(4);
+		T2.left = T2l;
+		T2.right = T2r;
+		NodeBinaryInt T2ll = new NodeBinaryInt(5);
+		T2l.left = T2ll;
+
+		return checkSubtree(T1, T2);
+	}
+	private static boolean checkSubtree(NodeBinaryInt T1, NodeBinaryInt T2){
+		if(T2==null	//empty tree is always a subtree
+			|| T1==null && T2==null){	//2 empty subtrees always match, reached the bottom
+			return true;
+		}
+		if(T1!=null){
+			if(T1.name!=T2.name){	//If different, check if left or right subtree of T1 matches all of T2
+				return checkSubtree(T1.left, T2) || checkSubtree(T1.right, T2);
+			}
+			if(T1.name==T2.name){	//If nodes match, check that left and right subtrees of both T1 & T2 also match
+				return checkSubtree(T1.left, T2.left) && checkSubtree(T1.right, T2.right);
+			}
+		}
+		return false;
+	}
+
 	public static void main(String[] args) {
 		System.out.println("4.2 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.");
 		System.out.println("Minimal tree creation order");
@@ -322,6 +370,13 @@ public class TreesAndGraphs {
 		
 		System.out.println("\n4.7 Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.");
 		TreesAndGraphs.buildOrderTest();
+
+		//4.8 First Common Ancestor: Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
+
+		//4.9 BST Sequences: A binary search tree was created by traversing through an array from left to right and inserting each element. Given a binary search tree with distinct elements, print all possible arrays that could have led to this tree.
+
+		System.out.println("\n4.10 Check Subtree: Tl and T2 are two very large binary trees, with Tl much bigger than T2. Create an algorithm to determine if T2 is a subtree of Tl. A tree T2 is a subtree of Tl if there exists a node n in Tl such that the subtree of n is identical to T2. That is, if you cut off the tree at node n, the two trees would be identical.");
+		System.out.println(TreesAndGraphs.checkSubtreeTest());
 	}
 
 }
