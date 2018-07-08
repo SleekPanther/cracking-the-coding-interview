@@ -2,7 +2,7 @@ package C_3_StacksAndQueues;
 
 import java.util.*;
 
-public class StacksAndQueses {	
+public class StacksAndQueues {	
 	//3.3 Stack of Plates: Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetO-fStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks. push() and SetOfStacks. pop() should behave identically to a single stack (that is, pop () should return the same values as it would if there were just a single stack).
 	//didn't implement popAt()
 	static class SetOfStacks{
@@ -203,18 +203,18 @@ public class StacksAndQueses {
 
 	public static void main(String[] args) {
 		System.out.println("3.3 Stack of Plates: Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetO-fStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks. push() and SetOfStacks. pop() should behave identically to a single stack (that is, pop () should return the same values as it would if there were just a single stack).");
-		StacksAndQueses.setOfStacksTest();
+		StacksAndQueues.setOfStacksTest();
 
 		System.out.println("\n3.4 Queue via Stacks: Implement a MyQueue class which implements a queue using two stacks.");
-		StacksAndQueses.queueViaStacksTest();
+		StacksAndQueues.queueViaStacksTest();
 
 		System.out.print("\n3.5 Sort Stack: Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and is Empty.");
-		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(1, 7, 9, 56, 3)));
-		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(1, 2, 3)));
-		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(3, 2, 1)));
-		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(3, 2, 1, 5)));
+		StacksAndQueues.sortStack(new LinkedList<Integer>(Arrays.asList(1, 7, 9, 56, 3)));
+		StacksAndQueues.sortStack(new LinkedList<Integer>(Arrays.asList(1, 2, 3)));
+		StacksAndQueues.sortStack(new LinkedList<Integer>(Arrays.asList(3, 2, 1)));
+		StacksAndQueues.sortStack(new LinkedList<Integer>(Arrays.asList(3, 2, 1, 5)));
 
 		System.out.println("\n3.6 Animal Shelter: An animal shelter, which holds only dogs and cats, operates on a strictly'first in, first out' basis. People must adopt either the 'oldest' (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. You may use the built-in Linked list data structure.");
-		StacksAndQueses.animalShelterTest();
+		StacksAndQueues.animalShelterTest();
 	}
 }
