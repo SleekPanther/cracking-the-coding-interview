@@ -140,6 +140,67 @@ public class StacksAndQueses {
 		}
 	}
 
+	//3.6 Animal Shelter: An animal shelter, which holds only dogs and cats, operates on a strictly"first in, first out" basis. People must adopt either the "oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. You may use the built-in Linked list data structure.
+	public static void animalShelterTest(){
+		AnimalShelter shelter = new AnimalShelter();
+		shelter.enqueue(new Animal(AnimalType.Cat, "C1"));
+		shelter.enqueue(new Animal(AnimalType.Cat, "C2"));
+		shelter.enqueue(new Animal(AnimalType.Dog, "D1"));
+		shelter.enqueue(new Animal(AnimalType.Cat, "C3"));
+		shelter.enqueue(new Animal(AnimalType.Dog, "D2"));
+		
+		System.out.println(shelter.dequeueAny());
+		System.out.println(shelter.dequeueAny());
+		System.out.println(shelter.dequeueAny());
+		// System.out.println(shelter.dequeueDog());
+		// System.out.println(shelter.dequeueCat());
+	}
+	enum AnimalType {Cat, Dog};
+	static class AnimalShelter{
+		private LinkedList<Animal> cats = new LinkedList<Animal>();
+		private LinkedList<Animal> dogs = new LinkedList<Animal>();
+		private int animalInsertionCounter = 0;
+
+		public void enqueue(Animal animal){
+			animal.insertOrder = animalInsertionCounter++;
+			if(animal.type == AnimalType.Cat){
+				cats.add(animal);
+			}
+			else if(animal.type == AnimalType.Dog){
+				dogs.add(animal);
+			}
+		}
+
+		public Animal dequeueDog(){
+			return dogs.removeFirst();
+		}
+		public Animal dequeueCat(){
+			return cats.removeFirst();
+		}
+
+		public Animal dequeueAny(){
+			if(cats.getFirst().insertOrder < dogs.getFirst().insertOrder){
+				return cats.removeFirst();
+			}
+			return dogs.removeFirst();
+		}
+	}
+	static class Animal{
+		public AnimalType type;
+		public String name;
+		public int insertOrder;
+
+		public Animal(AnimalType type, String name){
+			this.type=type;
+			this.name=name;
+		}
+
+		@Override
+		public String toString(){
+			return type + " " + name + ": " + insertOrder;
+		}
+	}
+
 	public static void main(String[] args) {
 		System.out.println("3.3 Stack of Plates: Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetO-fStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks. push() and SetOfStacks. pop() should behave identically to a single stack (that is, pop () should return the same values as it would if there were just a single stack).");
 		StacksAndQueses.setOfStacksTest();
@@ -152,5 +213,8 @@ public class StacksAndQueses {
 		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(1, 2, 3)));
 		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(3, 2, 1)));
 		StacksAndQueses.sortStack(new LinkedList<Integer>(Arrays.asList(3, 2, 1, 5)));
+
+		System.out.println("\n3.6 Animal Shelter: An animal shelter, which holds only dogs and cats, operates on a strictly'first in, first out' basis. People must adopt either the 'oldest' (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. You may use the built-in Linked list data structure.");
+		StacksAndQueses.animalShelterTest();
 	}
 }
