@@ -313,6 +313,39 @@ public class ArraysAndStrings {
 	}
 
 
+	//Ripple out: Given a position in a 2D matrix, iterate outwards in concentric ripples (rectangles/squares)
+	public static void rippleOutTest(){
+		int[][] matrix1 = new int[5][6];	//actual matrix contents doesn't matter, just the indices
+		rippleOut(matrix1, 2, 2, 3);
+	}
+	private static void rippleOut(int[][] matrix, int yStart, int xStart, int numRipples){
+		if(yStart>=matrix.length || yStart<0){
+			System.out.println("y start out of bounds");
+			return;
+		}
+		if(xStart>=matrix[0].length || xStart<0){
+			System.out.println("x start out of bounds");
+			return;
+		}
+
+		for(int rippleDistance = 1; rippleDistance<=numRipples; rippleDistance++){
+			System.out.println("Ripple = "+rippleDistance);
+			for (int y=yStart-rippleDistance; y<=yStart+rippleDistance; y++) {	//iterate through rows above to below
+				for (int x=xStart-rippleDistance; x<=xStart+rippleDistance; x++) {	//iterate through colums left to right
+					int xDistanceFromStart = Math.abs(x-xStart);
+					int yDistanceFromStart =Math.abs(y-yStart);
+					//Make sure Euclidean Distance from start matches the current ripple distance
+					if((xDistanceFromStart==rippleDistance || yDistanceFromStart==rippleDistance)
+						&& (y>=0 && y<matrix.length)		//verify y bounds
+						&& (x>=0 & x<matrix[0].length)){	//verify x bounds
+						System.out.println("["+y+","+x+"]");
+					}
+				}
+			}
+		}
+	}
+
+
 	public static void main(String[] args) {
 		System.out.println("#1 Is unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?");
 		System.out.println(ArraysAndStrings.isUnique("abc"));
@@ -350,6 +383,10 @@ public class ArraysAndStrings {
 		System.out.println(ArraysAndStrings.isRotation("erbottlewat", "waterbottle"));
 		System.out.println(ArraysAndStrings.isRotation("bca", "abc"));
 		System.out.println(ArraysAndStrings.isRotation("abb", "abc"));
+
+
+		System.out.println("\n\nRipple out: Given a position in a 2D matrix, iterate outwards in concentric ripples (rectangles/squares)");
+		ArraysAndStrings.rippleOutTest();
 	}
 
 }
